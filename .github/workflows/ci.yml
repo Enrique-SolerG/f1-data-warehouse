@@ -1,16 +1,20 @@
 name: CI
 
+# PR-only: main is protected, so every change lands through a pull request
+# that has already passed these checks.
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
+    # "edited" re-runs the title check when the PR title changes
+    types: [opened, synchronize, reopened, edited]
 
 jobs:
   lint-type-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Install uv
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
@@ -22,6 +26,13 @@ jobs:
 
       - name: Check commit messages
         run: uv run cz check --rev-range origin/${{ github.base_ref }}..HEAD
+
+      # With squash merge the PR title becomes the commit on main
+      - name: Check PR title
+        run: uv run cz check --message "$PR_TITLE"
+        env:
+          # via env, not inline, so the title can't inject shell
+          PR_TITLE: ${{ github.event.pull_request.title }}
 
       - name: Lint, format and type-check
         run: uv run pre-commit run --all-files
