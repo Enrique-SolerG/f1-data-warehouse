@@ -1,6 +1,5 @@
 FROM apache/airflow:3.3.1
 
-COPY pyproject.toml README.md ./
-COPY src ./src
+COPY open-f1-client ./open-f1-client
 
-RUN pip install --no-cache-dir .
+RUN pip install --no-cache-dir ./open-f1-client

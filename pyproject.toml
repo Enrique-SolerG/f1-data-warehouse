@@ -4,14 +4,13 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = ["open-f1-client"]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+[tool.uv.workspace]
+members = ["open-f1-client"]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/open_f1_client"]
+[tool.uv.sources]
+open-f1-client = { workspace = true }
 
 [dependency-groups]
 dev = [
@@ -24,7 +23,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["open-f1-client/tests"]
 asyncio_mode = "auto"
 
 [tool.commitizen]
