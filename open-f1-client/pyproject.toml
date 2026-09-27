@@ -3,7 +3,11 @@ name = "open-f1-client"
 version = "0.1.0"
 description = "Client for the OpenF1 API"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "aiohttp>=3.13,<3.14",
+    "pydantic>=2.13.5",
+    "tenacity>=9.1.4",
+]
 
 [build-system]
 requires = ["hatchling"]
