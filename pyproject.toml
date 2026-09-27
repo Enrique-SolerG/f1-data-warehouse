@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = ["open-f1-client"]
+dependencies = [
+    "open-f1-client",
+]
 
 [tool.uv.workspace]
 members = ["open-f1-client"]
@@ -14,6 +16,7 @@ open-f1-client = { workspace = true }
 
 [dependency-groups]
 dev = [
+    "aioresponses>=0.7.9",
     "commitizen>=4.19.0",
     "pre-commit>=4.6.2",
     "pyright>=1.1.414",
